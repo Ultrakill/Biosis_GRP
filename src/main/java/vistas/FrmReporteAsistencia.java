@@ -158,12 +158,18 @@ public class FrmReporteAsistencia extends javax.swing.JInternalFrame {
         pnlFiltro.setLayout(new java.awt.GridBagLayout());
 
         cboFiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboFiltroActionPerformed(evt);
+            }
+        });
         pnlFiltro.add(cboFiltro, new java.awt.GridBagConstraints());
 
         txtBusqueda.setEditable(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 8);
         pnlFiltro.add(txtBusqueda, gridBagConstraints);
 
         btnFiltro.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
@@ -247,23 +253,12 @@ public class FrmReporteAsistencia extends javax.swing.JInternalFrame {
 
         tblPermisos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "", "", "", ""
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
+        ));
         jScrollPane5.setViewportView(tblPermisos);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -281,23 +276,12 @@ public class FrmReporteAsistencia extends javax.swing.JInternalFrame {
 
         tblPermisosSISGEDO.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "", "", "", ""
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
+        ));
         jScrollPane4.setViewportView(tblPermisosSISGEDO);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -489,13 +473,13 @@ public class FrmReporteAsistencia extends javax.swing.JInternalFrame {
 
     PermisoControlador pc = new PermisoControlador();
     BoletaControlador bc = BoletaControlador.getInstance();
-    
+
     private void tblDetalleMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDetalleMouseReleased
         // TODO add your handling code here:
         int fila = tblDetalle.getSelectedRow();
         if (fila != -1) {
             RptAsistenciaDetallado asistencia = this.asistenciaDetalladoList.get(fila);
-            
+
             mostrarHorario(asistencia.getAsignacionHorario());
             mostrarMarcacion(asistencia.getEmpleado(), asistencia.getFecha());
             //PERMISOS X HORAS
@@ -508,6 +492,10 @@ public class FrmReporteAsistencia extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         generarReporteResumen();
     }//GEN-LAST:event_btnReporteResumenActionPerformed
+
+    private void cboFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboFiltroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboFiltroActionPerformed
 
     private final ReporteUtil reporteador = new ReporteUtil();
     private Empleado empleadoSeleccionado;
@@ -581,10 +569,8 @@ public class FrmReporteAsistencia extends javax.swing.JInternalFrame {
 
         MTDetalleHorarioHR mtTurno = new MTDetalleHorarioHR(turnoList);
         MTMarcacionRA mtMarcacion = new MTMarcacionRA(marcacionList);
-        
-        //
-        
 
+        //
         this.mtdra = new MTDetalleRegistroAsistencia(asistenciaDetalladoList);
 
         this.tblMarcacionesDia.setModel(mtMarcacion);
@@ -660,7 +646,7 @@ public class FrmReporteAsistencia extends javax.swing.JInternalFrame {
 
     private void mostrarHorario(AsignacionHorario asignacionHorario) {
         List<Turno> turnos = asignacionHorario.getHorario().getTurnoList();
-        
+
         turnoList.clear();
         turnoList.addAll(turnos);
         tblHorario.packAll();
@@ -673,37 +659,42 @@ public class FrmReporteAsistencia extends javax.swing.JInternalFrame {
         marcacionList.addAll(marcaciones);
         tblMarcacionesDia.packAll();
     }
-    
+
     TurnoControlador tc = TurnoControlador.getInstance();
-    
-    private void mostrarPermisosXHoras(RptAsistenciaDetallado asistencia){
+
+    private void mostrarPermisosXHoras(RptAsistenciaDetallado asistencia) {
         List<Permiso> listaPermisos = pc.buscarXEmpleadoXFechaEntreHora(asistencia.getEmpleado(),
-                                                                            asistencia.getFecha(),
-                                                                            asistencia.getDetalleJornada().getEntradaDesde(),
-                                                                            asistencia.getDetalleJornada().getSalida());
-        
-        permisoList.clear();
-        permisoList.addAll(listaPermisos);
-        tblPermisos.packAll();
-        
+                asistencia.getFecha(),
+                asistencia.getDetalleJornada().getEntradaDesde(),
+                asistencia.getDetalleJornada().getSalida());
+
+        if (!listaPermisos.isEmpty()) {
+            permisoList.clear();
+            permisoList.addAll(listaPermisos);
+            tblPermisos.packAll();
+        }
+
     }
-    
-    private void mostrarPermisosXHorasSISGEDO(RptAsistenciaDetallado asistencia){
-        
+
+    private void mostrarPermisosXHorasSISGEDO(RptAsistenciaDetallado asistencia) {
+
         List<Boleta> boletaLista = bc.permisoXHoraXFecha(asistencia.getEmpleado(),
-                                                                            asistencia.getFecha(),
-                                                                            asistencia.getDetalleJornada().getEntradaDesde(),
-                                                                            asistencia.getDetalleJornada().getSalida());
-        boletaList.clear();
-        boletaList.addAll(boletaLista);
-        tblPermisosSISGEDO.packAll();
-        
+                asistencia.getFecha(),
+                asistencia.getDetalleJornada().getEntradaDesde(),
+                asistencia.getDetalleJornada().getSalida());
+
+        if (!boletaLista.isEmpty()) {
+            boletaList.clear();
+            boletaList.addAll(boletaLista);
+            tblPermisosSISGEDO.packAll();
+        }
+
     }
 
     private void generarReporteResumen() {
-        for(RptAsistenciaDetallado detalle : asistenciaDetalladoList){
-            if(detalle.getTipoAsistencia().equals("R")){
-                
+        for (RptAsistenciaDetallado detalle : asistenciaDetalladoList) {
+            if (detalle.getTipoAsistencia().equals("R")) {
+
             }
         }
     }

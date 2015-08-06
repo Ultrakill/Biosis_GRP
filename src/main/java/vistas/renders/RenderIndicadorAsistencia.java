@@ -33,7 +33,7 @@ public class RenderIndicadorAsistencia extends DefaultTableCellRenderer implemen
     public RenderIndicadorAsistencia() {
         this.label = new JLabel();
         this.label.setOpaque(true);
-        this.label.setFont(new Font(Font.SANS_SERIF, 0, 15));
+        this.label.setFont(new Font(Font.SANS_SERIF, 0, 12));
         this.label.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.label.setForeground(Color.BLACK);
     }

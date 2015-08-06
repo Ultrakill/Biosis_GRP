@@ -264,15 +264,11 @@ public class VistaMarcaciones extends javax.swing.JInternalFrame {
         gridBagConstraints.gridwidth = 17;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         jPanel1.add(pnlNavegacion, gridBagConstraints);
-
-        dcFechaInicio.setDateFormatString("dd/MM/yyyy");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         jPanel1.add(dcFechaInicio, gridBagConstraints);
-
-        dcFechaFin.setDateFormatString("dd/MM/yyyy");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 0;

@@ -226,7 +226,7 @@ public class AnalisisAsistenciaCaliente {
             asistenciaDetalle.setVacacion(vacacion);
             asistenciaDetalle.setEmpleado(empleado);
             asistenciaDetalle.setAsignacionHorario(asignacionHorario);
-            asistenciaDetalle.setArea(areaEmpleado == null ? null : areaEmpleado.getDepartamento());
+//            asistenciaDetalle.setArea(areaEmpleado == null ? null : areaEmpleado.getDepartamento());
             asistenciaDetalle.setContrato(contrato);
             asistenciaDetalladoList.add(asistenciaDetalle);
 
@@ -241,7 +241,7 @@ public class AnalisisAsistenciaCaliente {
                 asistenciaDetalle.setFeriado(feriado);
                 asistenciaDetalle.setEmpleado(empleado);
                 asistenciaDetalle.setAsignacionHorario(asignacionHorario);
-                asistenciaDetalle.setArea(areaEmpleado == null ? null : areaEmpleado.getDepartamento());
+//                asistenciaDetalle.setArea(areaEmpleado == null ? null : areaEmpleado.getDepartamento());
                 asistenciaDetalladoList.add(asistenciaDetalle);
                 asistenciaDetalle.setContrato(contrato);
                 return asistenciaDetalladoList;
@@ -258,7 +258,7 @@ public class AnalisisAsistenciaCaliente {
                         asistenciaDetalle.setEmpleado(empleado);
                         asistenciaDetalle.setContrato(contrato);
                         asistenciaDetalle.setAsignacionHorario(asignacionHorario);
-                        asistenciaDetalle.setArea(areaEmpleado == null ? null : areaEmpleado.getDepartamento());
+//                        asistenciaDetalle.setArea(areaEmpleado == null ? null : areaEmpleado.getDepartamento());
                         asistenciaDetalladoList.add(asistenciaDetalle);
                         return asistenciaDetalladoList;
                     } else {
@@ -274,7 +274,7 @@ public class AnalisisAsistenciaCaliente {
                             asistenciaDetalle.setEmpleado(empleado);
                             asistenciaDetalle.setContrato(contrato);
                             asistenciaDetalle.setAsignacionHorario(asignacionHorario);
-                            asistenciaDetalle.setArea(areaEmpleado == null ? null : areaEmpleado.getDepartamento());
+//                            asistenciaDetalle.setArea(areaEmpleado == null ? null : areaEmpleado.getDepartamento());
                             asistenciaDetalladoList.add(asistenciaDetalle);
                             return asistenciaDetalladoList;
                         } else {
@@ -286,11 +286,11 @@ public class AnalisisAsistenciaCaliente {
                             int conteo = 1;
                             for (DetalleJornada detalle : detalleJornadaList) {
                                 //Se quitan los permisos x horas de la lista principal de los reportes x peticion del GRP.
-                                
+
 //                            System.out.println("FECHA ENTRADA SALIDA " + fecha + " " + detalle.getEntrada() + " " + detalle.getSalida());
 //                                List<Permiso> permisoList = permc.buscarXEmpleadoXFechaEntreHora(empleado, fecha, detalle.getEntradaDesde(), detalle.getSalida());
-                                //PERMISOS X HORAS
-                                
+////                                PERMISOS X HORAS
+//                                
 //                                System.out.println("DATOS BOLETA: " + empleado.getNombreCompleto() + " - " + fecha + " - " + detalle.getEntradaDesde() + "--" + detalle.getSalida());
 //                                List<Boleta> boletaList = bolc.permisoXHoraXFecha(empleado, fecha, detalle.getEntradaDesde(), detalle.getSalida());
 //                                System.out.println("PERMISOS: " + permisoList.size());
@@ -304,7 +304,7 @@ public class AnalisisAsistenciaCaliente {
 //                                        asistenciaDetalladoList.add(asistenciaPermiso);
 //                                    }
 //                                }
-
+//
 //                                for (Boleta bol : boletaList) {
 //                                    asistenciaDetalle = new RptAsistenciaDetallado();
 ////                                    asistenciaDetalle.setInicio(permisoInicio == null ? null : permisoInicio.getFechaHora());
@@ -323,10 +323,9 @@ public class AnalisisAsistenciaCaliente {
 //                                    asistenciaDetalladoList.add(asistenciaDetalle);
 ////                                    return asistenciaDetalladoList;
 //                                }
-
                                 RptAsistenciaDetallado asistencia = analizarDetalle(empleado, contrato, detalle, fecha);
                                 asistencia.setAsignacionHorario(asignacionHorario);
-                                asistencia.setArea(areaEmpleado == null ? null : areaEmpleado.getDepartamento());
+//                                asistencia.setArea(areaEmpleado == null ? null : areaEmpleado.getDepartamento());
                                 asistencia.setRegimenLaboral(null);
                                 asistenciaDetalladoList.add(asistencia);
 
@@ -435,10 +434,10 @@ public class AnalisisAsistenciaCaliente {
 
         if (entradaResultado == 'R' && salidaResultado == 'R') {
             detalleResultado = 'R';
-        } else if (entradaResultado == 'T' || salidaResultado == 'T') {
-            detalleResultado = 'T';
         } else if (entradaResultado == 'F' || salidaResultado == 'F') {
             detalleResultado = 'F';
+        } else if (entradaResultado == 'T' || salidaResultado == 'T') {
+            detalleResultado = 'T';
         }
 
         asistenciaDetalle.setInicio(entradaResultado != 'F' ? entradaMarcacion.getFechaHora() : null);
@@ -487,7 +486,7 @@ public class AnalisisAsistenciaCaliente {
         asistenciaPermiso.setPermiso(permiso);
         asistenciaPermiso.setDetalleJornada(detalle);
         asistenciaPermiso.setRegimenLaboral(contrato.getRegimenLaboral() == null ? "" : contrato.getRegimenLaboral().getNombre());
-        
+
         return asistenciaPermiso;
     }
 }

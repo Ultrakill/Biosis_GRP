@@ -1385,6 +1385,7 @@ public class DlgEmpleadoCRUD extends javax.swing.JDialog {
             FormularioUtil.convertirMayusculas(pnlEmpleado);
             FormularioUtil.convertirMayusculas(pnlGenerales);
 
+            empleado.setNroDocumento(txtNroDocumento.getText());
             empleado.setCondicion('A');
             empleado.setFechaNacimiento(dcFechaNacimiento.getDate());
             empleado.setMaterno(txtMaterno.getText());
